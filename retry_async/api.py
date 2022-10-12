@@ -7,7 +7,7 @@ from decorator import decorator
 
 logging_logger = logging.getLogger(__name__)
 
-EXCEPTIONS = T.Union[T.Tuple[T.Type[Exception]], T.Type[Exception]]
+EXCEPTIONS = T.Union[T.Tuple[T.Type[Exception], ...], T.Type[Exception]]
 
 P = T.ParamSpec("P")
 
