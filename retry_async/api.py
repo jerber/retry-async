@@ -114,9 +114,9 @@ DecSpecs = T.ParamSpec("DecSpecs")
 
 
 def retry(
+    exceptions: EXCEPTIONS = Exception,
     *,
     is_async: bool,
-    exceptions: EXCEPTIONS = Exception,
     tries: int = -1,
     delay: float = 0,
     max_delay: float = None,
