@@ -7,8 +7,7 @@ from decorator import decorator
 
 logging_logger = logging.getLogger(__name__)
 
-ExceptionType = T.TypeVar("ExceptionType", bound=Exception)
-EXCEPTIONS = T.Tuple[T.Type[ExceptionType]] | T.Type[ExceptionType]
+EXCEPTIONS = T.Union[T.Tuple[T.Type[Exception]], T.Type[Exception]]
 
 P = T.ParamSpec("P")
 
@@ -124,7 +123,7 @@ def retry(
     backoff: float = 1,
     jitter: float = 0,
     logger: logging.Logger = logging_logger,
-) -> T.Callable[DecSpecs, T.Any]:
+) -> T.Callable[..., T.Any]:
     """Returns a retry decorator.
 
     :param exceptions: an exception or a tuple of exceptions to catch. default: Exception.
@@ -142,7 +141,9 @@ def retry(
     if is_async:
 
         @decorator
-        async def retry_decorator_async(f, *fargs, **fkwargs):
+        async def retry_decorator_async(
+            f: T.Callable[P, T.Any], *fargs: T.Any, **fkwargs: T.Any
+        ) -> T.Any:
             args = fargs if fargs else list()
             kwargs = fkwargs if fkwargs else dict()
             return await __retry_internal_async(
@@ -160,7 +161,9 @@ def retry(
     else:
 
         @decorator
-        def retry_decorator_sync(f, *fargs, **fkwargs):
+        def retry_decorator_sync(
+            f: T.Callable[P, T.Any], *fargs: T.Any, **fkwargs: T.Any
+        ) -> T.Any:
             args = fargs if fargs else list()
             kwargs = fkwargs if fkwargs else dict()
             return __retry_internal_sync(

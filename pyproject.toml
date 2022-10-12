@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "retry-async"
-version = "0.1.0"
+version = "0.1.1"
 description = ""
 authors = ["Jeremy Berman <jerber@sas.upenn.edu>"]
 readme = "README.md"

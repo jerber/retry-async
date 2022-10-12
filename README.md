@@ -2,3 +2,7 @@ This is a fork of `https://github.com/invl/retry` that includes the ability to d
 Also using the sync tests from the original repo.
 
 `pip install retry-async`
+
+For mypy:
+
+`mypy retry_async`
