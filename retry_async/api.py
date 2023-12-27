@@ -2,6 +2,7 @@ import typing as T
 import logging
 import random
 import time
+import asyncio
 from functools import partial
 from decorator import decorator
 
@@ -98,7 +99,7 @@ async def __retry_internal_async(
             if logger is not None:
                 logger.warning("%s, retrying in %s seconds...", e, _delay)
 
-            time.sleep(_delay)
+            await asyncio.sleep(_delay)
             _delay *= backoff
 
             if isinstance(jitter, tuple):
